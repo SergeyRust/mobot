@@ -127,6 +127,11 @@ pub struct AnswerCallbackQueryRequest {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub url: Option<String>,
 
+    /// The game should then be opened in a WebView or in native UI (specified by the native_ui flag), exposing the appropriate
+    /// HTML5 APIs in order to receive various JS game events directly from the code of the game, as described here ».
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub native_ui: Option<bool>,
+
     /// The maximum amount of time in seconds that the result of the callback query may be cached client-side.
     /// Telegram apps will support caching starting in version 3.14. Defaults to 0.
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -153,6 +158,14 @@ impl AnswerCallbackQueryRequest {
         Self {
             callback_query_id: self.callback_query_id,
             show_alert: Some(show_alert),
+            ..Default::default()
+        }
+    }
+
+    pub fn with_native_ui(self, native_ui: bool) -> Self {
+        Self {
+            callback_query_id: self.callback_query_id,
+            native_ui: Some(native_ui),
             ..Default::default()
         }
     }
