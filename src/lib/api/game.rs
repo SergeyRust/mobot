@@ -43,7 +43,7 @@ impl SendGameRequest {
 impl API {
     /// Send game.
     pub async fn send_game_request(&self, req: &SendGameRequest) -> anyhow::Result<bool> {
-        self.client.post("sendGameRequest", req).await
+        self.client.post("sendGame", req).await
     }
 }
 
