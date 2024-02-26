@@ -21,14 +21,14 @@ pub struct SendGameRequest {
     pub disable_notification: Option<bool>,
     pub protect_content: Option<bool>,
     //pub reply_parameters: Option<ReplyParameters>,
-    pub reply_markup: Option<InlineKeyboardMarkup>,
+    pub reply_markup: Option<ReplyMarkup>,
 }
 
 impl SendGameRequest {
     pub fn new(
         chat_id: i64,
         game_short_name: String,
-        reply_markup: Option<InlineKeyboardMarkup>) -> Self {
+        reply_markup: Option<ReplyMarkup>) -> Self {
         Self {
             chat_id,
             message_thread_id: None,
