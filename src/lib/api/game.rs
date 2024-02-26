@@ -21,7 +21,7 @@ pub struct SendGameRequest {
     pub disable_notification: Option<bool>,
     pub protect_content: Option<bool>,
     //pub reply_parameters: Option<ReplyParameters>,
-    pub reply_markup: Option<ReplyMarkup>,
+    pub reply_markup_game: Option<ReplyMarkup>,
 }
 
 impl SendGameRequest {
@@ -35,7 +35,7 @@ impl SendGameRequest {
             game_short_name,
             disable_notification: Some(false),
             protect_content: Some(false),
-            reply_markup
+            reply_markup_game: reply_markup
         }
     }
 }
