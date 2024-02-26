@@ -24,6 +24,22 @@ pub struct SendGameRequest {
     pub reply_markup: Option<InlineKeyboardMarkup>,
 }
 
+impl SendGameRequest {
+    pub fn new(
+        chat_id: i64,
+        game_short_name: String,
+        reply_markup: Option<InlineKeyboardMarkup>) -> Self {
+        Self {
+            chat_id,
+            message_thread_id: None,
+            game_short_name,
+            disable_notification: Some(false),
+            protect_content: Some(false),
+            reply_markup
+        }
+    }
+}
+
 impl API {
     /// Send game.
     pub async fn send_game_request(&self, req: &SendGameRequest) -> anyhow::Result<bool> {
