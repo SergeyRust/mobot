@@ -44,6 +44,19 @@ impl InlineKeyboardButton {
 }
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct InlineKeyboardMarkup {
+    pub inline_keyboard: Vec<Vec<InlineKeyboardButton>>,
+}
+
+impl InlineKeyboardMarkup {
+    pub fn inline_keyboard_markup(inline_keyboard: Vec<Vec<InlineKeyboardButton>>) -> Self {
+        Self {
+            inline_keyboard
+        }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(untagged)]
 pub enum ReplyMarkup {
     InlineKeyboardMarkup {
