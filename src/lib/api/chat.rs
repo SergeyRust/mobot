@@ -32,6 +32,44 @@ pub struct Chat {
     pub is_forum: Option<bool>,
 }
 
+#[derive(Default, Debug, Clone, Serialize, Deserialize, BotRequest)]
+pub struct SetChatMenuButtonRequest {
+    pub chat_id: i64,
+    pub menu_button: MenuButton,
+}
+
+impl SetChatMenuButtonRequest {
+    pub fn new(chat_id: i64, menu_button: MenuButton) -> Self {
+        Self { chat_id, menu_button }
+    }
+}
+
+#[derive(Default, Debug, Clone, Serialize, Deserialize)]
+pub struct MenuButton {
+    /// Type of the button, must be web_app
+    #[serde(rename = "type")]
+    pub button_type: String,
+
+    pub text: String,
+
+    pub web_app: WebAppInfo,
+}
+
+impl MenuButton {
+    pub fn with_type_webapp(text: String, web_app: String) -> Self {
+        Self {
+            button_type: "web_app".into(),
+            text,
+            web_app: WebAppInfo { url : web_app }
+        }
+    }
+}
+
+#[derive(Default, Debug, Clone, Serialize, Deserialize)]
+pub struct WebAppInfo {
+    pub url: String,
+}
+
 impl<T: Into<String>> From<T> for Chat {
     fn from(s: T) -> Self {
         let from = s.into();
@@ -95,5 +133,11 @@ impl API {
     /// Send a message.
     pub async fn send_chat_action(&self, req: &SendChatActionRequest) -> anyhow::Result<bool> {
         self.client.post("sendChatAction", req).await
+    }
+
+    /// Use this method to change the bot's menu button in a private chat, or the default menu button.
+    /// Returns True on success.
+    pub async fn set_chat_menu_button(&self, req: &SetChatMenuButtonRequest) -> anyhow::Result<bool> {
+        self.client.post("setChatMenuButton", req).await
     }
 }
