@@ -200,7 +200,7 @@ impl Route {
                 .callback_query
                 .as_ref()
                 .and_then(|m| m.data.as_ref())
-                .map_or(true, |t| m.match_str(t)),
+                .map_or(false, |t| m.match_str(t)),
             Self::InlineQuery(m) => update
                 .inline_query
                 .as_ref()
